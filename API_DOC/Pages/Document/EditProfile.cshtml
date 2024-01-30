@@ -1,0 +1,82 @@
+﻿@page "/{BrandInput}/{state}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Reflection.Metadata
+@model API_DOC.Pages.Document.EditProfile
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Profile";
+}
+@if (Model.CurrentUser != null && Model.CurrentUser.BrandName.Equals(Model.BrandInput))
+{
+    @if (Model.Error != null)
+    {
+        @foreach (var variable in Model.Error)
+        {
+            <div>@variable</div>
+        }
+    }
+    @if (Model.State.Equals("EditProfile"))
+    {<div style="position:relative;width: 100%;height:650px">
+        <div style="position:relative; height:600px;width: 340px; left: 50% ; top: 20px; transform: translate(-50%, 0);background-color: #9DC4D9;border-radius: 10px;">
+            <div class="login-container">
+                <h2 style="text-align: center; color: #333;">تغییر اطلاعات حساب کاربری</h2>
+                <form class="login-form" method="post">
+                    <div class="form-group">
+                        <label asp-for="Input.Username">نام کاربری</label>
+                        <input asp-for="Input.Username" value="@Model.CurrentUser?.Username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email">پست الکترونیکی</label>
+                        <input asp-for="Input.Email" value="@Model.CurrentUser?.Email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Phone">شماره همراه</label>
+                        <input asp-for="Input.Phone" value="@Model.CurrentUser?.Phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.BrandName">نام شرکت</label>
+                        <input asp-for="Input.BrandName" value="@Model.CurrentUser?.BrandName" class="form-control" required>
+                    </div>
+                    <button type="submit" class="submit-button">تغییر اطلاعات</button>
+                </form>
+                <a asp-page="./EditProfile" asp-route-BrandInput="@Model.CurrentUser.BrandName" asp-route-State="EditPassword" style="text-decoration: none">
+                    <button class="submit-button" style="margin-top: 10px">تغییر رمز </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    }
+    else if(Model.State.Equals("EditPassword"))
+    {
+        <div style="position:relative;width: 100%;height:540px">
+            <div style="position:relative; height:490px;width: 340px; left: 50% ; top: 20px; transform: translate(-50%, 0);background-color: #9DC4D9;border-radius: 10px;">
+                <div class="login-container">
+                    <h2 style="text-align: center; color: #333;">تغییر اطلاعات حساب کاربری</h2>
+                    <form class="login-form" method="post">
+                        <div class="form-group">
+                            <label asp-for="MyPass.Past">رمز عبور قبلی</label>
+                            <input asp-for="MyPass.Past" type="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MyPass.Current">رمز عبور جدید</label>
+                            <input asp-for="MyPass.Current" type="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MyPass.Confirm">تکرار رمز عبور جدید</label>
+                            <input asp-for="MyPass.Confirm" type="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="submit-button">تغییر رمز</button>
+                    </form>
+                    <a asp-page="./EditProfile" asp-route-BrandInput="@Model.CurrentUser.BrandName" asp-route-State="EditProfile" style="text-decoration: none">
+                        <button class="submit-button" style="margin-top: 10px">تغییر اطلاعات </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h1 style="text-align: center">Not Authorized</h1>
+}

@@ -1,0 +1,75 @@
+﻿@page "/Admin/{State}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model API_DOC.Pages.Document.AdminPanel
+
+@{
+    Layout ="Shared/_Layout";
+    ViewData["Title"] = "AdminPanel";
+}
+
+@if (Model.CurrentUser is {Username: "admin" })
+{
+    <div class="Main" style="height: 1000px">
+        <div class="Main-Content">
+            @if (Model.State == "Panel")
+            {
+                <table>
+                    <thead>
+                    <tr>
+                        <th>نام کاربری</th>
+                        <th>شرکت</th>
+                        <th>شماره همراه</th>
+                        <th>ایمیل</th>
+                        <th>تایید کاربری</th>
+                        <th>لغو کاربری</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var user in Model.UserList)
+                    {
+                        <tr>
+                            <td>@user.Username</td>
+                            <td>@user.BrandName</td>
+                            <td>@user.Phone</td>
+                            <td>@user.Email</td>
+                           <td>
+                              <form asp-page="AdminPanel" asp-page-handler="Accept" method="post">
+                                  <input type="hidden" name="userName" value="@user.Username" />
+                                  <button type="submit" class="ARButton" style="color: green">Accept</button>
+                              </form>
+                           </td>
+                           <td>
+                               <form asp-page="AdminPanel" asp-page-handler="Reject" method="post">
+                                   <input type="hidden" name="userName" value="@user.Username" />
+                                   <button type="submit" class="ARButton" style="color: red">Reject</button>
+                               </form>
+                           </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="Main-slide" style="height: 1000px">
+            <div class="Methode-div" style="top:0">
+                <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminPanel" title="Panel" asp-route-State="Panel">
+                    <p class="SlideText" style="color: @(Model.State == "Panel" ? "green" : "black")">پنل پذیرش</p>
+                </a>
+            </div>
+            <div class="Methode-div" style="top:50px">
+                <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminEditSite" title="Edit" asp-route-State="Edit", asp-route-InputMethod="GetCustomerByMobile">
+                    <p class="SlideText">تغییر اطلاعات سایت</p>
+                </a>
+            </div>
+            <div class="Methode-div" style="top:100px">
+                <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminEditSite" title="Edit" asp-route-State="Edit", asp-route-InputMethod="NewMethod">
+                    <p class="SlideText">افزودن متد به سایت</p>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h1 style="text-align: center">Not Authorized</h1>
+}

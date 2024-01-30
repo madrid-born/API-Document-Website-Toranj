@@ -1,0 +1,111 @@
+﻿@page "/KeyMaker/{MethodInput}/{BrandInput}"
+@using API_DOC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model API_DOC.Pages.Document.KeyMaker
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "KeyMaker";
+}
+
+@if (Model.CurrentUser != null)
+{
+    <div class="Main" style="height: @(Model.MethodCount * 50 + 75)px">
+        <div class="Main-Content">
+            @if (Model.BrandInput.Equals("MakeKey"))
+            {
+                <form method="post">
+                    @foreach (var key in Model.ElementFinder())
+                    {
+                        <div class="form-group" style="padding-right: 5%">
+                            <label asp-for="Dict[key]">@key</label>
+                            <input asp-for="Dict[key]" class="form-control" required>
+                        </div>
+                    }
+                    <button type="submit" class="submit-button">نمایش اطلاعات شخصی سازی شده</button>
+                </form>
+            }
+            else
+            {
+                <div class="DetKey-div">
+               
+                    <div class="Out_div">
+                        <div class="DetKeyHeader">
+                            <h1> <strong>@Model.CurrentMethod?.Name</strong>توضیح </h1>
+                        </div>
+                        <div class="DetKeyContent" style="height: 150px">
+
+                            <p>@Model.CurrentMethod?.Details</p>
+                        </div>
+                    </div>
+                    <div class="Det_div">
+                        <div class="DetKeyHeader">
+                            <h1 style="font-family: Yekan Bakh,serif"><strong>خروجی</strong></h1></div>
+                        <div class="DetKeyContent">
+                            @foreach (var line in Statics.TextToLines(Model.CurrentMethod?.OutPut)!)
+                            {
+                                <h5 style="padding: 10px">@line</h5>
+                            }
+                        </div>
+                    </div>
+                    <div class="Key-div">
+                        <div class="DetKeyHeader">
+                            <h1 style="font-family: Yekan Bakh,serif"><strong>ورودی</strong></h1></div>
+                        <div class="DetKeyContent">
+                            @if (Model.CurrentMethod?.Key != null)
+                            {
+                                foreach (var line in Statics.TextToLines(Statics.Revised(Model.GetDict(), 0, Model.CurrentMethod.Key)))
+                                {
+                                    <h5 style="padding: 20px">@line</h5>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="Code-div">
+                    <section id="blog" class="content-section">
+                        <div>
+                            <ul class="tabs " data-tabgroup="first-tab-group">
+                                @foreach (var language in Model.Languages)
+                                {
+                                    var tabIndex = Model.Languages.IndexOf(language);
+                                    <li id="tab-@tabIndex" class="TabBar">
+                                        <a onclick="showPage(@tabIndex)">
+                                            @language
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                            <div>
+                                @foreach (var language in Model.Languages)
+                                {
+                                    <div id="code-@Model.Languages.IndexOf(language)" class="CodeBox">
+                                        @foreach (var line in Statics.TextToLines(Statics.Revised(Model.GetDict(), Model.Languages.IndexOf(language) % 2, Statics.LanguageFind(Model.CurrentMethod, language))))
+                                        {
+                                            <h5>@line</h5>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            }
+        </div>
+
+        <div class="Main-slide" style="height: @(Model.MethodCount * 50 + 75)px">
+            @for (var i = 0; i < Model.MethodCount; i++)
+            {
+                <div class="Methode-div" style="top:@(i * 50)px">
+                    <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./KeyMaker" title="@Model.MethodList[i].Name" asp-route-MethodInput="@Model.MethodList[i].Name" asp-route-BrandInput="MakeKey">
+                        <p class="SlideText" style="color: @(Model.MethodList[i] == Model.CurrentMethod ? "green" : "black")">@Model.MethodList[i].PersianName</p>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+<h1 style="text-align: center">Not Authorized</h1>
+}

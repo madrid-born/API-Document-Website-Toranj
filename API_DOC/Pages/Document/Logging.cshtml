@@ -1,0 +1,103 @@
+﻿@page "/Logging/{State}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model API_DOC.Pages.Document.Logging
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Logging";
+}
+@if (Model.Error != null)
+{
+    @foreach (var variable in Model.Error)
+    {
+        <div>@variable</div>
+    }
+}
+
+@if (Model.State.Equals("LogIn"))
+{
+<div style="position:relative;width: 100%;height:440px">
+    <div style="position:relative; height:390px;width: 340px; left: 50% ; top: 20px; transform: translate(-50%, 0);background-color: #9DC4D9;border-radius: 10px;">
+        <div class="login-container">
+            <h2 style="text-align: center; color: #333;">ورود به حساب کاربری</h2>
+            <form class="login-form" method="post">
+                <div class="form-group">
+                    <label asp-for="Input.Username">نام کاربری</label>
+                    <input asp-for="Input.Username" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password">رمز عبور</label>
+                    <input type="password" asp-for="Input.Password" required>
+                </div>
+                <button type="submit" class="submit-button">ورود</button>
+            </form>
+            <a asp-page="./Logging" asp-route-State="Register" style="text-decoration: none">
+                <button class="submit-button" style="margin-top: 10px">حساب ندارید؟ ساخت حساب </button>
+            </a>
+        </div>
+    </div>
+</div>
+}
+else if (Model.State.Equals("Register"))
+{
+    
+<div style="position:relative;width: 100%;height:870px">
+    <div style="position:relative; height:820px;width: 340px; left: 50% ; top: 20px; transform: translate(-50%, 0);background-color: #9DC4D9;border-radius: 10px;">
+        <div class="login-container">
+            <h2 style="text-align: center; color: #333;">ساخت حساب کاربری</h2>
+            <form class="login-form" method="post">
+                <div class="form-group">
+                    <label asp-for="Input.Username">نام کاربری</label>
+                    <input asp-for="Input.Username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">پست الکترونیکی</label>
+                    <input asp-for="Input.Email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.BrandName">نام شرکت</label>
+                    <input asp-for="Input.BrandName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Phone">شماره همراه</label>
+                    <input asp-for="Input.Phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MyPass.Current">رمز عبور</label>
+                    <input asp-for="MyPass.Current" type="password" class="form-control" required>
+                </div>                                                                
+                <div class="form-group">
+                    <label asp-for="MyPass.Confirm">تکرار رمز عبور</label>
+                    <input asp-for="MyPass.Confirm" type="password" class="form-control" required>
+                </div>
+                <button type="submit" class="submit-button">ساخت حساب</button>
+            </form>
+            <a asp-page="./Logging" asp-route-State="LogIn" style="text-decoration: none">
+                <button class="submit-button" style="margin-top: 10px">از قبل حساب دارید؟ ورود به حساب </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+}
+else if (Model.State.Equals("LogOut"))
+{
+<div style="position:relative;width: 100%;height:300px">
+    <div style="position:relative; height:250px;width: 340px; left: 50% ; top: 20px; transform: translate(-50%, 0);background-color: #9DC4D9;border-radius: 10px;">
+        <div class="login-container">
+            <h2 style="text-align: center; color: #333;">عملیات با موفقیت انجام شد</h2>
+            <div class="login-form">
+                <div style="text-align: center;">
+                    <p>شما با موفقیت از حساب کاربری خود خارج شدید</p>
+                </div>
+                    <a asp-page="./Logging" asp-route-State="LogIn" style="text-decoration: none">
+                        <button class="submit-button" style="margin-top: 10px">ورود به حساب کاربری</button>
+                    </a>
+                    <a href="/" style="text-decoration: none">
+                        <button class="submit-button" style="margin-top: 10px">ورود به سایت</button>
+                    </a>
+            </div>
+        </div>
+    </div>
+</div>
+}

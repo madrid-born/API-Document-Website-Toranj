@@ -1,0 +1,141 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewData["Title"]</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/fontAwesome.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+<body>
+<header class="Head">
+    <div>
+        <a href="/" >
+        <img style="cursor:pointer" src="/images/logo.png" alt="logo" id="header-image">
+        </a>
+    </div>
+    <div class="ProfileButton">
+        <a class="fa fa-user profile" onclick=toggleProfile()></a>
+    </div>
+        @if (Model.CurrentUser != null && Model.CurrentUser.Username.Equals("admin"))
+        {
+            <div class="popUpView" id="PopUP">
+                <ul class="list">
+                    <li>
+                        <a class="listItem" asp-page="./AdminPanel" asp-route-State="Panel" title="AdminPanel Panel">پنل پذیرش</a>
+                        <hr/>
+                        <a class="listItem" asp-page="./AdminEditSite" asp-route-State="Edit" asp-route-InputMethod="GetCustomerByMobile" title="Edit Properties">تغییر اطلاعات سایت</a>
+                        <hr/>
+                        <a class="listItem" asp-page="./AdminEditSite" asp-route-State="Edit" asp-route-InputMethod="NewMethod" title="Add a new method">اضافه کردن متد جدید</a>
+                        <hr/>
+                        <a class="listItem" style="color: red" asp-page="./Logging" asp-route-State="LogOut" title="Log out from your account">خروج از حساب کاربری</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else if (Model.CurrentUser != null)
+        {
+            <div class="popUpView" id="PopUP">
+                <ul class="list">
+                    <li>
+                        <a class="listItem" asp-page="./Document" asp-route-InputString="Dictionary" title="Dictionary">مشاهده دیکشنری</a>
+                        <hr/>
+                        <a class="listItem" title="Edit Your Profile" asp-page="./EditProfile" asp-route-BrandInput="@Model.CurrentUser.BrandName" asp-route-State="EditProfile">تنظیمات حساب کاربری</a>
+                        <hr/>
+                        <a class="listItem" title="Make Your Own Keys" asp-page="./KeyMaker" asp-route-BrandInput="MakeKey" asp-route-MethodInput="GetCustomerByMobile">ساخت کلید اختصاصی</a>
+                        <hr/>
+                        <a class="listItem" style="color: red" asp-page="./Logging" asp-route-State="LogOut" title="Log out from your account">خروج از حساب کاربری</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="popUpView" id="PopUP" style="height: 110px">
+                <ul class="list">
+                    <li>
+                        <a class="listItem" asp-page="./Logging" asp-route-State="LogIn" title="Log in to your account">ورود به حساب کاربری</a>
+                        <hr/>
+                        <a class="listItem" asp-page="./Logging" asp-route-State="Register" title="Register your new account">ساخت حساب کاربری</a>
+                    </li>
+                </ul>
+            </div>
+        }
+</header>
+<div>
+    @RenderBody()
+</div>
+<footer class="Foot">
+    <footer>
+        <div class="FootSection">
+            <div class="FootSubSection">
+                <div>
+                    <strong class="FootStrongTag" style="font-size: large">مشتریان</strong>
+                    <ul class="FootList">
+                        <li>
+                            <a class="FootATag" href="https://my.nopapers.ir">سامانه تیکتینگ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="FootSubSection" style="left: 30%;top: -150px">
+                <div>
+                    <strong class="FootStrongTag" style="font-size: large">ارتباط با ما</strong>
+                    <ul class="FootList">
+                        <li><a class="FootATag" href="https://dadehfa.com/contact-us/">تماس با ما</a></li>
+                        <li><a class="FootATag" href="https://dadehfa.com/about-us/">درباره ما</a></li>
+                        <li><a class="FootATag" href="https://dadehfa.com/rules/">قوانین و مقررات</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <hr>
+            <div>
+                <div class="FootSection2">
+                    <div class="FootSubSection2" >شماره تماس ۹۱۰۱۱۰۵۱-۰۵۱</div>
+                    <div>
+                        <a href="https://telegram.com/" class="fa fa-telegram SocialMediaLogo"></a>
+                        <a href="https://www.instagram.com/dadehfa" class="fa fa-instagram SocialMediaLogo"></a>
+                        <a href="" class="fa fa-whatsapp SocialMediaLogo"></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="FootFinal">کلیه حقوق مادی و معنوی این وبسایت متعلق به شرکت ترنج رهیافت نسل جدید (داده فا) میباشد. © 1396-1402 - نسخه 1.4.0.1</div>
+        </div>
+    </footer>
+</footer>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        showPage(0);
+    });
+    function showPage(lang) {
+        var views = document.querySelectorAll('.CodeBox');
+        views.forEach(function(view) {
+            view.classList.remove('active');
+        });
+       
+        var targetView = document.querySelector('#code-' + lang);
+        targetView.classList.add('active');
+        var views2 = document.querySelectorAll('.TabBar');
+        views2.forEach(function(view) {
+            view.classList.remove('active');
+        });
+        var targetView2 = document.querySelector('#tab-' + lang);
+        targetView2.classList.add('active');
+        document.querySelector(`#tab-${lang}`).classList.add("ActiveTab");
+    }
+    function toggleProfile() {
+        var targetView = document.querySelector('#PopUP');
+        if (targetView.classList.contains('active')) {
+            targetView.classList.remove('active');
+        } else {
+            targetView.classList.add('active');
+        }
+    }
+</script>
+</html>

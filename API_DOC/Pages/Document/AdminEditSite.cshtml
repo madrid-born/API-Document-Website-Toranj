@@ -1,0 +1,155 @@
+﻿@page "/Admin/{State}/{InputMethod}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model API_DOC.Pages.Document.AdminEditSite
+
+@{
+    Layout ="Shared/_Layout";
+    ViewData["Title"] = "AdminPanel";
+}
+
+@if (Model.CurrentUser is {Username: "admin" })
+{
+    <div class="Main" style="height: @(Model.MethodCount * 50 + 75)px">
+        <div class="Main-Content">
+            <br/>
+            <form class="EditSite" asp-page="AdminEditSite" asp-page-handler=@(Model.InputMethod == "NewMethod" ? "New" : "Edit") method="post">
+                <div class="form-group-site">
+                    <div class="input-pair">
+                        <label asp-for="Input.Name">Name:</label>
+                        <input asp-for="Input.Name" type="text" id="Name" name="Name" value="@(Model.InputMethod != "NewMethod" ? Model.CurrentMethod.Name : "")" required><br><br>
+                    </div>
+                    <div class="input-pair">
+                        <label asp-for="Input.PersianName">PersianName:</label>
+                        <input asp-for="Input.PersianName" type="text" id="PersianName" name="PersianName" value="@(Model.InputMethod != "NewMethod" ? Model.CurrentMethod.PersianName : "")" required><br><br>
+                    </div>
+                </div>
+
+                <label asp-for="Input.Details">Details:</label>
+                <input asp-for="Input.Details" type="text" id="Details" name="Details" value="@(Model.InputMethod != "NewMethod" ? Model.CurrentMethod.Details : "")" required><br><br>
+
+                <div class="form-group-site">
+                    <div class="input-pair">
+                        <label asp-for="Input.Key">Key:</label>
+                        <textarea asp-for="Input.Key" type="text" id="Key" name="Key" required></textarea>
+                    </div>
+                    <div class="input-pair">
+                        <label asp-for="Input.CsCode">CsCode:</label>
+                        <textarea asp-for="Input.CsCode" type="text" id="CsCode" name="CsCode"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group-site">
+                    <div class="input-pair">
+                        <label asp-for="Input.Php1Code">Php1Code:</label>
+                        <textarea asp-for="Input.Php1Code" type="text" id="Php1Code" name="Php1Code"></textarea><br><br>
+                    </div>
+                    <div class="input-pair">
+                        <label asp-for="Input.Php2Code">Php2Code:</label>
+                        <textarea asp-for="Input.Php2Code" type="text" id="Php2Code" name="Php2Code"></textarea><br><br>
+
+                    </div>
+                </div>
+
+                <div class="form-group-site">
+                    <div class="input-pair">
+                        <label asp-for="Input.PythonCode">PythonCode:</label>
+                        <textarea asp-for="Input.PythonCode" type="text" id="PythonCode" name="PythonCode"></textarea><br><br>
+                    </div>
+                    <div class="input-pair">
+                        <label asp-for="Input.NodeJsCode">NodeJsCode:</label>
+                        <textarea asp-for="Input.NodeJsCode" type="text" id="NodeJsCode" name="NodeJsCode"></textarea><br><br>
+                    </div>
+                </div>
+                <button type="submit" class="submit-button" style="position:relative; width:98%; top:-30px;margin-top: 10px; "> تایید </button>
+                @if (Model.InputMethod != "NewMethod")
+                {
+                    <script>
+                    function humanizeString(inputString) {
+                      // Replace HTML entities with their corresponding characters
+                      const decodedString = inputString
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&#xD;/g, '')
+                        .replace(/&#xA;/g, '\n')
+                        .replace(/&#x9;/g, '\t')
+                        .replace(/&#x27;/g, '\'')
+                        .replace(/&#x2003;/g, '\'')
+                        .replace(/&quot;/g, '\"');
+                      
+                      return decodedString;
+                    }
+                    var textarea1 = document.getElementById("Key");
+                    var textarea2 = document.getElementById("CsCode");
+                    var textarea3 = document.getElementById("Php1Code");
+                    var textarea4 = document.getElementById("Php2Code");
+                    var textarea5 = document.getElementById("PythonCode");
+                    var textarea6 = document.getElementById("NodeJsCode");
+                    textarea1.value = humanizeString('@Model.CurrentMethod.Key');
+                    textarea2.value = humanizeString('@Model.CurrentMethod.CsCode');
+                    textarea3.value = humanizeString('@Model.CurrentMethod.Php1Code');
+                    textarea4.value = humanizeString('@Model.CurrentMethod.Php2Code');
+                    textarea5.value = humanizeString('@Model.CurrentMethod.PythonCode');
+                    textarea6.value = humanizeString('@Model.CurrentMethod.NodeJsCode');
+                </script>
+                }
+                else
+                {
+                    <script>
+                        var textarea2 = document.getElementById("CsCode");
+                        var textarea3 = document.getElementById("Php1Code");
+                        var textarea4 = document.getElementById("Php2Code");
+                        var textarea5 = document.getElementById("PythonCode");
+                        var textarea6 = document.getElementById("NodeJsCode");
+                        textarea2.value = "[not set yet]";
+                        textarea3.value = "[not set yet]";
+                        textarea4.value = "[not set yet]";
+                        textarea5.value = "[not set yet]";
+                        textarea6.value = "[not set yet]";
+                    </script>
+                }
+            </form>
+        </div>
+
+        <div class="Main-slide" style="height: @(Model.MethodCount * 50 + 75)px">
+            @if (Model.InputMethod != "NewMethod")
+            {
+                <div class="Methode-div-edit" style="top:0; height: 71px;">
+                    <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminPanel" asp-route-State="Panel" title="Main Page">
+                        <p style="top:25%;text-align:center" class="SlideText">برگشت به صفحه قبل</p>
+                    </a>
+                </div>
+                @for (var i = 0; i < Model.MethodCount; i++)
+                {
+                    <div class="Methode-div-edit" style="top:@(i * 50 + 75)px">
+                        <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminEditSite" title="@Model.MethodList[i].Name" asp-route-InputMethod="@Model.MethodList[i].Name">
+                            <p class="SlideText" style="color: @(Model.MethodList[i] == Model.CurrentMethod ? "red" : "black")">@Model.MethodList[i].PersianName</p>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="Methode-div" style="top:0">
+                    <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminPanel" title="Panel" asp-route-State="Panel">
+                        <p class="SlideText">پنل پذیرش</p>
+                    </a>
+                </div>
+                <div class="Methode-div" style="top:50px">
+                    <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminEditSite" title="Edit" asp-route-State="Edit", asp-route-InputMethod="GetCustomerByMobile">
+                        <p class="SlideText">تغییر اطلاعات سایت</p>
+                    </a>
+                </div>
+                <div class="Methode-div" style="top:100px">
+                    <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./AdminEditSite" title="Edit" asp-route-State="Edit", asp-route-InputMethod="NewMethod">
+                        <p class="SlideText" style="color: green">افزورن متد به سایت</p>
+                    </a>
+                </div>
+            }
+            
+        </div>
+    </div>
+}
+else
+{
+<h1 style="text-align: center">Not Authorized</h1>
+}

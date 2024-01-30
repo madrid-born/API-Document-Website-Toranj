@@ -1,0 +1,669 @@
+@font-face {
+    font-family: 'Yekan Bakh';
+    src: url(./css/yek/YekanBakh-Regular.woff);
+}
+
+html{
+    position: relative;
+    font-family: "Yekan Bakh", Serif;
+}
+
+body{
+    position: relative;
+    width: 100%;
+    top: -8px;
+    left: -8px;
+    overflow-x: hidden;
+}
+  
+p {
+    font-size: 13px;
+    color: #7a7a7a;
+}
+
+h1{
+    font-size: x-large;
+}
+
+header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    position:relative;
+}
+
+#header-image {
+
+    position:absolute;
+    float: right;
+    max-height: 120px;
+    top: -10%;
+    left: 80%;
+    margin-left: 10px;
+}
+
+.profile{
+    color: white; 
+    font-size: xxx-large;
+    cursor: pointer;
+}
+
+.TabBar {
+    list-style: none;
+
+    height: 50px;
+    width: auto;
+    background-color: #FFF;
+    
+}
+
+.DetKeyHeader{
+    position:relative;
+    height: 30px;
+    background: #9DC4D9;
+    width: 98%;
+    left: 1%
+}
+
+.DetKeyHeader h1{
+    text-align: center;
+}
+
+.DetKeyContent{
+    position:relative;
+    background:whitesmoke;
+    overflow-y: scroll;
+    height: 300px;
+    width: 98%;
+    left: 1%
+}
+
+.DetKeyContent p{
+    font-size: xx-large;
+    font-family: Yekan Bakh,serif;
+    text-align: center;
+}
+
+.DetKeyContent h5{
+    text-align: left;
+    font-size: large;
+    color: #7a7a7a;
+    line-height: 0
+}
+
+.CodeBox {
+     position: relative;
+     background-color: black;
+     text-align: left;
+     color: white;
+     padding: 20px;
+     width: 100%;
+     top: 20px;
+     height: 480px;
+     overflow-y: scroll;
+     box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+     display: none;
+}
+
+.CodeBox.active {
+     display: block;
+}
+
+.Head{
+     height: 100px;
+     width: 100%;
+     background: #047F94;
+}
+ Head div{
+     display: flex;
+     flex-direction: row
+}
+
+.Main{
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     background: whitesmoke;
+}
+
+.Main-Content
+{
+     position:relative;
+     width: 80%;
+}
+
+.Main-slide{
+     position: absolute;
+     background: #047F94;
+     width: 20%;
+     left: 80%;
+}
+
+.Foot{
+    padding-top: 20px;
+    height: 237px;
+     width: 100%;
+     background: #047F94;
+}
+
+.DetKey-div{
+    position: relative;
+    top: 10px;
+    height: 550px;
+    width: 100%;
+}
+
+.Det_div{
+     position: absolute;
+     width:48.5% ;
+     height:350px ;
+     left: 1%;
+     background: #FFF;
+}
+
+.Key-div{
+     position: absolute;
+     width:48.5% ;
+     height:350px ;
+    transform: translate(103.5%, 0%);
+     
+     background: #FFF;
+}
+
+.Out-div{
+    position: absolute;
+    width:99% ;
+    height:150px ;
+    background: #FFF;
+}
+
+.Code-div{
+     position: absolute;
+     width:98% ;
+     height: 650px;
+     left: 1%;
+     background: #FFF;
+}
+
+.Methode-div{
+     position: absolute;
+     width:96% ;
+     height: 46px;
+     left: 2%;
+     top: 4px;
+     background: #FFF;
+     border: 5px #9DC4D9;
+     border-radius: 10px;
+}
+
+.Methode-div:hover{
+    background: #9DC4D9;
+}
+
+.Methode-div-edit{
+    position: absolute;
+    width:96% ;
+    height: 46px;
+    left: 2%;
+    top: 4px;
+    background: #FFF;
+    border: 5px #9DC4D9;
+    border-radius: 10px;
+}
+
+.Methode-div-edit:hover{
+    background: rebeccapurple;
+}
+
+.SlideText{
+    position:relative;
+    transform:translate(0%,-50%);
+    text-align: right;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.content-section {
+    position: relative;
+    width: 90%;
+    display: inline-block;
+    height: auto;
+    text-align: center;
+
+}
+
+.section-heading {
+
+    text-align: left;
+    position: relative;
+    margin-bottom: 60px;
+}
+
+
+/* Blog Style */
+
+#blog {
+padding-left: 30px;
+}
+
+#blog .tabs {
+    position:relative;
+    left: 0.5% ;
+    top:0;
+    height: 50px;
+    width: 93%;
+    background-color: transparent;
+}
+
+
+#blog .tabs li {
+    display: inline-block;
+    font-size: small;
+    width: 20%;
+    float: left;
+    border-bottom: 10px solid #9DC4D9;
+}
+
+#blog .tabs a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    color: #232323;
+    font-size: small;
+    line-height: 60px;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+#blog .tabs a:active {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    color: #fff;
+    font-size: small;
+    line-height: 40px;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+#blog .tabs a:hover {
+    color: #047F94;
+    cursor:pointer;
+}
+
+#blog .tabs a:active{
+    color: white;
+}
+
+#blog .tabs .active .a {
+    color: #fff;
+}
+
+#blog .tabs .a .active {
+    color: #fff;
+}
+
+#blog .tabs .active {
+    background-color: #9DC4D9;
+    color: #fff;
+    text-underline-color: white;
+}
+
+.tabgroup {
+    background-color: transparent;
+    padding: 20px 30px;
+}
+
+.clearfix:after {
+    content:"";
+    display:table;
+    clear:both;
+}
+
+#blog .tabgroup ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#blog .tabgroup ul li {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+#blog .tabgroup ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+#blog .tabgroup ul li img {
+    float: left;
+    margin-right: 30px;
+    max-width: 100%;
+    overflow: hidden;
+}
+#blog .tabgroup ul li .text-content {
+    display: inline;
+}
+
+#blog .item .text-content h4 {
+    padding-top: 7.5px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-weight: 600;
+    color: #232323;
+    letter-spacing: 0.5px;
+}
+
+#blog .item .text-content span {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #7a7a7a;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+#blog .item .text-content .accent-button {
+    margin-top: 25px;
+}
+
+    
+.HeadDetail{
+    position: relative;
+    width:98% ;
+    height: 320px;
+    left: 1%;
+    background: #FFF;
+}
+
+.Details{
+    position: relative;
+    width:98% ;
+    height: 400px;
+    left: 1%;
+    top:0;
+}
+
+.ApiAddress{
+    position: relative;
+    width:48.5% ;
+    height: 300px;
+    left: 1%;
+    top:0;
+}
+
+.ApiKey{
+    position: relative;
+    width:48.5% ;
+    height: 300px;
+    left: 1%;
+    top:0;
+    transform: translate(103%, 0);
+}
+
+.Description{
+    position: relative;
+    width:98% ;
+    left: 1%;
+}
+
+.MoreDetails{
+    position: relative;
+    width:98% ;
+    height: 250px;
+    left: 1%;
+    background: #FFF;
+}
+
+.KeyDetail{
+    position: relative;
+    width:98% ;
+    height: 300px;
+    left: 1%;
+}
+
+.AdditionalDetails{
+    position: relative;
+    width:98% ;
+    height: 200px;
+    left: 1%;
+}
+
+.ProfileButton{
+    position: relative;
+    width: 10%;
+    top: 25px;
+    left: 3%;
+
+}
+
+.login-container {
+    
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+    background-color: #9DC4D9;
+    border-radius: 10px;
+    top: 20px;
+
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+label {
+    text-align: right;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-right: 6px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 92%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-family: "Yekan Bakh", Serif;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.popUpView{
+    position: relative;
+    height: 200px;
+    width: 15%;
+    top: 12px;
+    left: 1%;
+    background-color: #9DC4D9;
+    border-radius: 10px;
+    z-index: 1;
+    display: none;
+}
+
+.popUpView.active {
+    display: block;
+}
+
+.list{
+    list-style: none;
+    text-align: right;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+.FootList{
+    list-style: none;
+    text-align: right;
+}
+
+.listItem{
+    font-size: large;
+    text-decoration: none;
+    font-family: Yekan Bakh,serif;
+    color: black;
+}
+
+.listItem:hover{
+    color: white;
+}
+
+.LogOutButtons{
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.LogOutButtons a{
+    text-decoration: none;
+}
+
+.LogOutButtons a button {
+    display: block;
+    width: 48%;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.FootSection {
+    height: 150px
+}
+
+.FootSubSection{
+    position:relative;
+    width: 49%;
+    height: 150px;
+    left: -20%;
+    top: 0;
+    text-align: right
+}
+
+.FootATag{
+    text-decoration: none;
+    font-size: small;
+    font-family: Yekan Bakh,serif;
+    color: white
+}
+
+.FootStrongTag{
+    text-decoration: none;
+    font-size: small;
+    font-family: Yekan Bakh,serif;
+    color: white
+}
+
+.FootATag:hover{
+    color: black;
+}
+
+.SocialMediaLogo{
+    text-decoration: none;
+    font-size: xxx-large;
+    color: white
+}
+
+.FootSection2{
+    text-align: center;
+    color: white
+}
+
+.FootSubSection2{
+    direction: ltr;
+    font-family: Yekan Bakh,serif;
+    font-size: large;
+}
+
+.FootFinal{
+    text-align: center;
+    font-family: Yekan Bakh,serif
+}
+
+.ARButton{
+    
+}
+
+.EditSite{
+    position: relative;
+    left: 10px;
+}
+
+.EditSite label{
+    text-align: left;
+}
+
+.form-group {
+    direction: rtl;
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.form-group-site {
+    direction: ltr;
+    padding-right: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.input-pair {
+    display: inline-block;
+    width: 48%; /* Adjust as needed to leave some space for spacing */
+    box-sizing: border-box;
+}
+
+.input-pair textarea {
+    display: block;
+    width: 100%;
+    height: 250px;
+    margin-bottom: 5px;
+}

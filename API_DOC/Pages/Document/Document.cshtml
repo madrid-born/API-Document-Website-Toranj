@@ -1,0 +1,199 @@
+﻿@page "/Document/{InputString}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using API_DOC.Models
+@model DocumentModel
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Document";
+}
+
+<div class="Main" style="height: @(Model.MethodCount*50+75)px">
+    <div class="Main-Content">
+        @if (Model.InputString != "Home" && Model.InputString != "Dictionary")
+        {
+            <div class="DetKey-div">
+               
+                <div class="Out_div">
+                    <div class="DetKeyHeader">
+                        <h1> <strong>@Model.CurrentMethod?.Name</strong>توضیح </h1>
+                    </div>
+                    <div class="DetKeyContent" style="height: 150px">
+
+                        <p>@Model.CurrentMethod?.Details</p>
+                    </div>
+                </div>
+                <div class="Det_div">
+                    <div class="DetKeyHeader">
+                        <h1 style="font-family: Yekan Bakh,serif"><strong>خروجی</strong></h1></div>
+                    <div class="DetKeyContent">
+                        @foreach (var line in Statics.TextToLines(Model.CurrentMethod?.OutPut)!)
+                        {
+                            <h5 style="padding: 10px">@line</h5>
+                        }
+                    </div>
+                </div>
+                <div class="Key-div">
+                    <div class="DetKeyHeader">
+                        <h1 style="font-family: Yekan Bakh,serif"><strong>ورودی</strong></h1></div>
+                    <div class="DetKeyContent">
+                        @foreach (var line in Statics.TextToLines(Model.CurrentMethod?.Key)!)
+                        {
+                            <h5 style="padding: 10px">@line</h5>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="Code-div">
+                <section id="blog" class="content-section">
+                    <div>
+                        <ul class="tabs " data-tabgroup="first-tab-group">
+                            @foreach (var language in Model.Languages)
+                            {
+                                var tabIndex = Model.Languages.IndexOf(language);
+                                <li id="tab-@tabIndex" class="TabBar">
+                                    <a onclick="showPage(@tabIndex)">
+                                        @language
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <div>
+                            @foreach (var language in Model.Languages)
+                            {
+                                <div id="code-@Model.Languages.IndexOf(language)" class="CodeBox">
+                                    @foreach (var line in Statics.TextToLines(Statics.LanguageFind(Model.CurrentMethod, language)))
+                                    {
+                                        <h5>@line</h5>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        }
+        else if (Model.InputString == "Home")
+        {
+
+            <div class="HeadDetail" style="height: 260px">
+                <div class="Description">
+                    <h1 style="text-align: center; direction : rtl; font-family: Yekan Bakh,serif">برای استفاده از این API نیاز است که فروشگاه استفاده کننده کلید مخصوص
+                        خود را از شرکت ترنج رهیافت دریافت کند</h1>
+                </div>
+                <div class="DetKey-div" style="height: 0">
+                    <div class="Det_div" style="height: 200px">
+                        <div class="DetKeyHeader">
+                            <h1>آدرس API</h1>
+                        </div>
+                        <div class="DetKeyContent" style="height: 100px;">
+                            <p style="font-family: 'Open Sans', sans-serif;font-size: x-large">https://RestApiMaster.toranjapp.ir/api/</p>
+                        </div>
+                    </div>
+                    <div class="Key-div" style="height: 200px">
+                        <div class="DetKeyHeader">
+                            <h1 style="direction: rtl">فروشگاه آزمایشی «نمونه کلید»</h1>
+                        </div>
+                        <div class="DetKeyContent" style="height: 100px;">
+                            <br/>
+                            <p style="font-family: 'Open Sans', sans-serif;font-size: medium">MzFDMUM1RkUtNjYxMy00MEVCLThBQ0EtRTI1Qjk1OUUwRTBC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MoreDetails" style="height: 340px">
+                <p style="font-size:large; direction:rtl;font-family: Yekan Bakh,serif;text-align: right; padding: 10px; color: black">برای استفاده از متدهای API نیاز است که کلید دریافت شده در بخش Header
+                    درخواست ها به سمت سرور ارسال شود<br/>
+
+                    در کلیه ریکوئست های این API پارامترها به صورت رشته در قالب XML به
+                    سرور ارسال میشود.
+                    <br/>برای عملیات های مختلف کلیدهای مختلف در سرور تعریف میشود که در
+                    رشته ارسالی به سرور قرار داده میشود و نتیجه دریافت میشود.
+                    <br/><br/> سه نکته مهم در رابطه با API :
+                    <br/>• در کلیه ورودی ها BrandName و ReportKey الزامی میباشد
+                    <br/>• در ورودی هایی که از Mobile استفاده شده است میتوان از CustomerID نیز استفاده کرد
+                    <br/>• در برخی از متد های ذکر شده ورودی مورد نظر دارای فیلدی به نام TsCode میباشد
+                    <br/>     این فیلد اختیاری است و به صورت پیش فرض با مقدار 0 فرض شده است
+                    <br/>     شما میتوانید با یکبار ریکوئست دادن ، بزرگترین مقدار TsCode را دریافت کرده و آن را ذخیره کنید 
+                    <br/>     و پس از آن مرحله با قرار دادن TsCode ماکسیمم، فقط دیتاهای جدیدتر از آن را مشاهده کنید 
+                </p>
+            </div>
+            <div class="HeadDetail" style="height: 460px">
+                <div class="Description">
+                    <h1 style="text-align: center; direction : rtl; font-family: Yekan Bakh,serif">برای مثال یک نمونه کد و یک کلید ورودی نمونه استفاده شده است</h1>
+                </div>
+                <div class="DetKey-div">
+                    <div class="Det_div">
+                        <div class="DetKeyHeader">
+                            <h1>C# - HttpClient</h1>
+                        </div>
+                        <div class="DetKeyContent" style="background: black">
+                            <p style="text-align: left; padding: 10px">
+                                <code style="font-size: medium; text-align: left;">
+                                    var client = new HttpClient();
+                                    var request = new HttpRequestMessage(HttpMethod.Post, "RestApiMaster.toranjapp.ir/api/Values/Post");
+                                    request.Headers.Add("AppId", "api_key YourSecretPassword
+                                    ");
+                                    var response = await client.SendAsync(request);
+                                    response.EnsureSuccessStatusCode();
+                                    Console.WriteLine(await response.Content.ReadAsStringAsync());
+                                </code>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="Key-div" style="height: 300px;">
+                        <div class="DetKeyHeader">
+                            <h1 style="direction: rtl">کلید نمونه</h1>
+                        </div>
+
+                        <div class="DetKeyContent" style="height:300px">
+                            <p style="text-align: left; font-size:x-large; font-family: 'Open Sans', sans-serif;padding: 10px">
+                                &lt;root&gt;<br/>
+                                &lt;BrandName&gt;DadehFa&lt;/BrandName&gt;<br/>
+                                &lt;ReportKey&gt;YourReportKey&lt;/ReportKey&gt;<br/>
+                                &lt;/root&gt;<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.InputString == "Dictionary")
+        {
+            @if (Model.CurrentUser != null)
+            {
+                <table>
+                    <thead>
+                    <tr>
+                        <th>کلید</th>
+                        <th>معنی</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (int i = 0; i < 15; i += 1)
+                    {
+                        <tr>
+                            <td>@Model.Key[i]</td>
+                            <td>@Model.Value[i]</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        }
+    </div>
+    <div  class="Main-slide" style="height: @(Model.MethodCount*50+75)px;">
+        <div class="Methode-div" style="top:0; height: 71px;">
+            <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./Document" title="Main Page" asp-route-InputString="Home">
+                <p class="SlideText" style="top:25%;text-align:center;color: @(Model.InputString == "Home"? "green" : "black")">صفحه اصلی</p>
+            </a>
+        </div>
+        @for (var i = 0; i < Model.MethodCount; i++)
+        {
+            <div class="Methode-div" style="top:@(i * 50 + 75)px">
+                <a style="font-size: large;text-decoration: none;font-family: Yekan Bakh,serif" asp-page="./Document" title="@Model.MethodList[i].Name" asp-route-InputString="@Model.MethodList[i].Name">
+                    <p class="SlideText" style="color: @(Model.MethodList[i] == Model.CurrentMethod? "green" : "black")">@Model.MethodList[i].PersianName</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>
